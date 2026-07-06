@@ -1,0 +1,51 @@
+// ShopKarao database schema
+// Run `npm run db:push` to sync this with your Neon Postgres database.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Which pre-built template a shop's site uses. Add more values here
+// as you design more templates — see src/components/templates/.
+enum TemplateType {
+  RETAIL
+  RESTAURANT
+  BOUTIQUE
+}
+
+// A shop whose website has been generated. Each shop has one live
+// page at /site/[slug], built entirely from this row + its Photos.
+model Shop {
+  id           String       @id @default(cuid())
+  slug         String       @unique
+  name         String
+  category     String // free-text label shown on the site, e.g. "Kirana & General Store"
+  templateType TemplateType @default(RETAIL)
+  tagline      String // short line under the shop name in the hero
+  description  String // the "About" paragraph
+  phone        String
+  whatsapp     String? // optional; if set, shows a WhatsApp button
+  address      String
+  mapEmbedUrl  String? // optional Google Maps embed link
+  published    Boolean      @default(true) // unpublish to hide a site without deleting it
+  photos       Photo[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+// A single photo belonging to a shop, stored on Cloudinary.
+// `order` controls the position in the gallery (0 = cover photo).
+model Photo {
+  id        String   @id @default(cuid())
+  url       String
+  publicId  String // Cloudinary public_id, needed to delete the image later
+  order     Int      @default(0)
+  shop      Shop     @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  shopId    String
+  createdAt DateTime @default(now())
+}

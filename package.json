@@ -1,0 +1,43 @@
+{
+  "name": "galliweb",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GalliWeb — turn any local shop into a live website in minutes. Public marketing site + private admin generator tool.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "node scripts/seed-demo-shops.js",
+    "db:studio": "prisma studio",
+    "hash-password": "node scripts/hash-password.js"
+  },
+  "dependencies": {
+    "next": "14.2.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@prisma/client": "^5.16.1",
+    "prisma": "^5.16.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.23.8",
+    "cloudinary": "^2.3.0",
+    "slugify": "^1.6.6",
+    "jose": "^5.6.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3",
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.6",
+    "tailwindcss": "^3.4.4",
+    "postcss": "^8.4.39",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.35"
+  }
+}

@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Hero "before / after" signature element ──────────────────────────
+   This is the one signature moment on the marketing page: hovering the
+   card reveals the shop's old signboard photo turning into a live
+   website. It relies on a clip-path transition, which Tailwind doesn't
+   have clean utilities for, so it lives here instead of as inline classes.
+*/
+.transform-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.transform-card .layer {
+  position: absolute;
+  inset: 0;
+}
+
+.transform-card .layer-after {
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 1.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.transform-card:hover .layer-after {
+  clip-path: inset(0 0 0 0%);
+}
+
+.transform-card .drag-hint {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.transform-card:hover .drag-hint {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transform-card .layer-after {
+    transition: none;
+  }
+}
